@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Deck implements Iterable<Card>{
+public class Deck{
 
     public ArrayList<Card> deckList;
 
@@ -21,7 +21,6 @@ public class Deck implements Iterable<Card>{
         Collections.shuffle(deckList);
     }
 
-    @Override
     public Iterator<Card> iterator(){
         return new DeckIterator();
     }
@@ -88,7 +87,7 @@ public class Deck implements Iterable<Card>{
     public static void main(String[] args) {
         Deck deck = new Deck();
 
-        for(Card c : deck){
+        for(Card c : deck.deckList){
             System.out.println(c);
         }
 
