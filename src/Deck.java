@@ -1,9 +1,11 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Deck{
+public class Deck implements Iterable<Card>, Serializable {
+    static final long serialVersionUID = 49L;
 
     public ArrayList<Card> deckList;
 
@@ -21,9 +23,7 @@ public class Deck{
         Collections.shuffle(deckList);
     }
 
-    public Iterator<Card> iterator(){
-        return new DeckIterator();
-    }
+    public Iterator<Card> iterator(){return new DeckIterator();}
 
     public class DeckIterator implements Iterator {
         int currentPos = 0;
@@ -32,6 +32,31 @@ public class Deck{
         public boolean hasNext(){
             if(currentPos < deckList.size()){
                 return true;
+            }
+            return false;
+        }
+
+        @Override
+        public Card next(){
+            if(this.hasNext()){
+                return deckList.get(currentPos++);
+            }
+            return null;
+        }
+    }
+
+    public Iterator<Card> spadeIterator(){return new SpadeIterator();}
+
+    public class SpadeIterator implements Iterator{
+        int currentPos = 0;
+
+        @Override
+        public boolean hasNext(){
+            while(currentPos < deckList.size()){
+                if(deckList.get(currentPos).suit == Card.Suit.SPADES){
+                    return true;
+                }
+                currentPos++;
             }
             return false;
         }
@@ -58,7 +83,6 @@ public class Deck{
         for(Card c : deckList){
             cardCount++;
         }
-
         return cardCount;
     }
 
@@ -84,13 +108,48 @@ public class Deck{
         return "";
     }
 
+    public void serialize() throws Exception{
+        String file = "deck.ser";
+
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this);
+        oos.close();
+    }
+
+    public Deck unserialize(String file) throws Exception{
+        Deck deck = new Deck();
+
+        FileInputStream fis = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        return (Deck)ois.readObject();
+    }
+
     public static void main(String[] args) {
         Deck deck = new Deck();
 
-        for(Card c : deck.deckList){
-            System.out.println(c);
+        //Serializable Testing
+        /*System.out.println(deck);
+        System.out.println("----------------------------");
+
+        try{
+            deck.serialize();
+        }
+        catch(Exception e){
+            System.out.println("exception");
         }
 
-        deck.deal();
+        deck.newDeck();
+        System.out.println(deck);
+        System.out.println("----------------------------");
+
+        try{
+            deck = deck.unserialize("deck.ser");
+        }
+        catch(Exception e){
+            System.out.println("exception");
+        }
+
+        System.out.println(deck);*/
     }
 }
