@@ -1,8 +1,5 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 public class Card implements Serializable, Comparable<Card>{
     static final long serialVersionUID = 100;

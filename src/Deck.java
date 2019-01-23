@@ -1,11 +1,8 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 
-public class Deck implements Iterable<Card>, Serializable {
-    static final long serialVersionUID = 49L;
+public class Deck implements Iterable<Card>, Serializable{
+    static final long serialVersionUID = 49;
 
     public ArrayList<Card> deckList;
 
