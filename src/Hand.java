@@ -152,13 +152,76 @@ public class Hand implements Iterable<Card>, Serializable{
         return "";
     }
 
-    public static void main(String[] args) {
-        Card c1 = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
-        Card c2 = new Card(Card.Rank.FOUR, Card.Suit.SPADES);
-        Card c3 = new Card(Card.Rank.TEN, Card.Suit.SPADES);
-        Card c4 = new Card(Card.Rank.EIGHT, Card.Suit.SPADES);
+    public void sort(){
+        int handSize = handList.size();
+        Card temp = handList.get(0);
+        for(int i=0; i < handSize; i++){
+            for(int j=1; j < (handSize-i); j++){
+                if(handList.get(j-1).compareTo(handList.get(j)) == 1){
+                    //swap elements
+                    temp = handList.get(j-1);
+                    handList.set(j-1, handList.get(j));
+                    handList.set(j, temp);
+                }
+            }
+        }
+    }
 
-        Card[] cardArr = {c1, c2, c3, c4};
+    public void sortByRank(){
+        Comparator<Card> comp = new Card.CompareRank();
+        int handSize = handList.size();
+        Card temp = handList.get(0);
+        for(int i=0; i < handSize; i++){
+            for(int j=1; j < (handSize-i); j++){
+                if(comp.compare(handList.get(j-1), handList.get(j)) == 1){
+                    //swap elements
+                    temp = handList.get(j-1);
+                    handList.set(j-1, handList.get(j));
+                    handList.set(j, temp);
+                }
+            }
+        }
+    }
+
+    public int countSuit(Card.Suit suit){
+        int count = 0;
+        for(Card card : this.handList){
+            if(card.suit == suit){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int countRank(Card.Rank rank){
+        int count = 0;
+        for(Card card : this.handList){
+            if(card.rank == rank){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public boolean hasSuit(Card.Suit suit){
+        for(Card card : this.handList){
+            if(card.suit == suit){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Card c1 = new Card(Card.Rank.TEN, Card.Suit.DIAMONDS);
+        Card c2 = new Card(Card.Rank.THREE, Card.Suit.SPADES);
+        Card c3 = new Card(Card.Rank.TEN, Card.Suit.SPADES);
+        Card c4 = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
+        Card c5 = new Card(Card.Rank.SIX, Card.Suit.DIAMONDS);
+        Card c6 = new Card(Card.Rank.THREE, Card.Suit.CLUBS);
+        Card c7 = new Card(Card.Rank.THREE, Card.Suit.DIAMONDS);
+
+        Card[] cardArr = {c1, c2, c3, c4, c5, c6, c7};
 
         Hand hand = new Hand(cardArr);
 
@@ -167,5 +230,10 @@ public class Hand implements Iterable<Card>, Serializable{
         while(itr.hasNext()){
             System.out.println(itr.next());
         }
+
+        hand.sortByRank();
+
+        System.out.println("-------------------------");
+        System.out.println(hand);
     }
 }
