@@ -4,14 +4,14 @@ import java.util.*;
 public class Hand implements Iterable<Card>, Serializable{
     static final long serialVersionUID = 300;
 
-    private ArrayList<Card> handList;
+    public ArrayList<Card> handList;
     private int clubCount;
     private int diamondCount;
     private int heartCount;
     private int spadeCount;
     private ArrayList<Integer> totalValues;
 
-    public Hand(){}
+    public Hand(){handList = new ArrayList<>();}
 
     public Hand(Card[] cardArr){
         handList = new ArrayList<>();
@@ -95,23 +95,23 @@ public class Hand implements Iterable<Card>, Serializable{
         }
     }
 
-    public void addCard(Card card){
+    public void add(Card card){
         handList.add(card);
     }
 
-    public void addCollection(ArrayList<Card> cardList){
+    public void add(ArrayList<Card> cardList){
         for(Card card : cardList){
             handList.add(card);
         }
     }
 
-    public void addHand(Hand hand){
+    public void add(Hand hand){
         for(Card card: hand.handList){
             this.handList.add(card);
         }
     }
 
-    public boolean removeTopCard(){
+    public boolean remove(){
         if(!handList.isEmpty()){
             handList.remove(0);
             return true;
@@ -121,7 +121,7 @@ public class Hand implements Iterable<Card>, Serializable{
         }
     }
 
-    public boolean removeAll(Hand hand){
+    public boolean remove(Hand hand){
         int removed = 0;
         int size = hand.handList.size();
 
@@ -138,7 +138,7 @@ public class Hand implements Iterable<Card>, Serializable{
         }
     }
 
-    public Card removeCard(int position){
+    public Card remove(int position){
         Card returnCard = handList.get(position);
         handList.remove(position);
         return returnCard;
@@ -223,9 +223,12 @@ public class Hand implements Iterable<Card>, Serializable{
 
         Card[] cardArr = {c1, c2, c3, c4, c5, c6, c7};
 
-        Hand hand = new Hand(cardArr);
+        Hand hand = new Hand();
+        for(Card c : cardArr){
+            hand.add(c);
+        }
 
-        Iterator<Card> itr = hand.iterator();
+        /*Iterator<Card> itr = hand.iterator();
 
         while(itr.hasNext()){
             System.out.println(itr.next());
@@ -234,6 +237,6 @@ public class Hand implements Iterable<Card>, Serializable{
         hand.sortByRank();
 
         System.out.println("-------------------------");
-        System.out.println(hand);
+        System.out.println(hand);*/
     }
 }

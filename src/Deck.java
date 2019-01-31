@@ -67,9 +67,7 @@ public class Deck implements Iterable<Card>, Serializable{
         }
     }
 
-    public Card deal(){
-        Iterator<Card> itr = this.iterator();
-
+    public Card deal(Iterator<Card> itr){
         Card nextCard = itr.next();
         System.out.println(nextCard);
         return nextCard;

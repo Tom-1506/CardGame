@@ -177,7 +177,12 @@ public class Card implements Serializable, Comparable<Card>{
         cardList.add(c6);
         cardList.add(c7);
 
-        Comparator<Card> comp = new CompareRank();
+        System.out.println(cardList.size());
+
+        cardList.remove(0);
+        System.out.println(cardList.get(0));
+
+        /*Comparator<Card> comp = new CompareRank();
 
         ArrayList<Card> greater = chooseGreater(cardList, comp, choiceCard);
 
@@ -186,6 +191,6 @@ public class Card implements Serializable, Comparable<Card>{
 
         for(Card card : greater){
             System.out.println(card);
-        }
+        }*/
     }
 }

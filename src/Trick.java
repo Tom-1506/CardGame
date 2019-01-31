@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+
 /**
  * Skeleton class for storing information about whist tricks
  * @author ajb
  */
 public class Trick{
    public static Card.Suit trumps;
+   private ArrayList<Card> cardList = new ArrayList<>();
+   private ArrayList<Player> playerList = new ArrayList<>();
    
    public Trick(int p){}    //p is the lead player 
    
@@ -24,7 +28,8 @@ public class Trick{
  * @param p 
  */
     public void setCard(Card c, Player p){
-        throw new UnsupportedOperationException("set card not supported yet."); 
+        cardList.add(c);
+        playerList.add(p);
     }
 /**
  * Returns the card played by player with id p for this trick

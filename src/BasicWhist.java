@@ -1,22 +1,28 @@
+import java.util.Iterator;
+
 /**
  *
  * @author ajb
  */
-public class BasicGame {
+public class BasicWhist{
     static final int NOS_PLAYERS=4;
     static final int NOS_TRICKS=13;
     static final int WINNING_POINTS=7;
     int team1Points=0;
     int team2Points=0;
     Player[] players;
-    public BasicGame(Player[] pl){
-        
+
+    public BasicWhist(Player[] pl){
+        players = pl;
     }
+
     public void dealHands(Deck newDeck){
-        for(int i=0;i<NOS_TRICKS;i++){
-            players[i%NOS_PLAYERS].dealCard(newDeck.deal());
+        Iterator<Card> itr = newDeck.iterator();
+        for(int i=0;i<NOS_TRICKS*NOS_PLAYERS;i++){
+            players[i%NOS_PLAYERS].dealCard(newDeck.deal(itr));
         }
     }
+
     public Trick playTrick(Player firstPlayer){
         Trick t=new Trick(firstPlayer.getID());
         int playerID=firstPlayer.getID();
@@ -26,6 +32,7 @@ public class BasicGame {
         }
         return t;
     }
+
     public void playGame(){
         Deck d=new Deck();
         dealHands(d);
@@ -40,8 +47,6 @@ public class BasicGame {
             System.out.println("Trick ="+t);
             firstPlayer=t.findWinner();
             System.out.println("Winner ="+firstPlayer);
-            
-            
         }
     }
 /**
@@ -59,18 +64,22 @@ public class BasicGame {
             System.out.println("Winning team is team1 1 with"+team1Points);
         else
             System.out.println("Winning team is team2 1 with"+team2Points);
-            
     }
+
     public static void playTestGame(){
         Player[] p = new Player[NOS_PLAYERS];
+        Strategy s = new BasicStrategy();
         for(int i=0;i<p.length;i++){
-            p[i]=null;//CREATE YOUR PLAYERS HERE
-
+            p[i] = new BasicPlayer();
+            p[i].setStrategy(s);
         }
-        BasicGame bg=new BasicGame(p);
+        BasicWhist bg=new BasicWhist(p);
         bg.playMatch(); //Just plays a single match
-}
-    public static void main(String[] args) {
+    }
+
+    public static void main(String[] args){
+
+
         playTestGame();
     }
     
