@@ -5,45 +5,76 @@ import java.util.ArrayList;
  * @author ajb
  */
 public class Trick{
-   public static Card.Suit trumps;
-   private ArrayList<Card> cardList = new ArrayList<>();
-   private ArrayList<Player> playerList = new ArrayList<>();
-   
-   public Trick(int p){}    //p is the lead player 
-   
-   public static void setTrumps(Card.Suit s){
+    private int leadPlayer;
+    public static Card.Suit trumps;
+    private Integer winner = null;
+    private ArrayList<Card> cardList = new ArrayList<>(4);
+
+    public Trick(int p){
+       leadPlayer = p;
+       for(int i = 0; i < 4; i++){
+           cardList.add(null);
+       }
+       if(trumps == null){
+           trumps = Card.Suit.randSuit();
+       }
+    }    //p is the lead player
+
+    public static void setTrumps(Card.Suit s){
        trumps=s;
-   }
-    
-/**
- * 
- * @return the Suit of the lead card.
- */    
+    }
+
+    /**
+    *
+    * @return the Suit of the lead card.
+    */
     public Card.Suit getLeadSuit(){
-        throw new UnsupportedOperationException("get lead suit not supported yet."); 
+        return cardList.get(leadPlayer).getSuit();
     }
-/**
- * Records the Card c played by Player p for this trick
- * @param c
- * @param p 
- */
+    /**
+    * Records the Card c played by Player p for this trick
+    * @param c
+    * @param p
+    */
     public void setCard(Card c, Player p){
-        cardList.add(c);
-        playerList.add(p);
+        System.out.println(p.getID());
+        cardList.set(p.getID(), c);
     }
-/**
- * Returns the card played by player with id p for this trick
- * @param p
- * @return 
- */    
+    /**
+    * Returns the card played by player with id p for this trick
+    * @param p
+    * @return
+    */
     public Card getCard(Player p){
-        throw new UnsupportedOperationException("get card not supported yet."); 
+        return cardList.get(p.getID());
     }
-    
-/**
- * Finds the ID of the winner of a completed trick
- */    
+
+    /**
+    * Finds the ID of the winner of a completed trick
+    */
     public int findWinner(){
-        throw new UnsupportedOperationException("get find winner not supported yet."); 
+        System.out.println(cardList);
+        winner = leadPlayer;
+        Card.Suit winSuit = cardList.get(winner).getSuit();
+
+        for(int i = 0; i < cardList.size(); i++){
+            Card c = cardList.get(i);
+
+            if(c.getSuit() == trumps){
+                winSuit = trumps;
+                if(cardList.get(winner).getSuit() != winSuit && c.compareTo(cardList.get(winner)) != 1){
+                    winner = i;
+                }
+            }
+
+            if(c.compareTo(cardList.get(winner)) == 1 && c.getSuit() == winSuit){
+                winner = i;
+            }
+        }
+        return winner;
+    }
+
+    public Integer getWinner(){
+        return winner;
     }
 }

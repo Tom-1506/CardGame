@@ -58,8 +58,8 @@ public class Card implements Serializable, Comparable<Card>{
 
     @Override
     public int compareTo(Card compCard){
-        int[] thisCardValue = new int[] {this.rank.getValue(), this.suit.ordinal()};
-        int[] compCardValue = new int[] {compCard.rank.getValue(), this.suit.ordinal()};
+        int[] thisCardValue = new int[] {this.rank.ordinal(), this.suit.ordinal()};
+        int[] compCardValue = new int[] {compCard.rank.ordinal(), compCard.suit.ordinal()};
 
         if(thisCardValue[0] > compCardValue[0]){
             return 1;
@@ -159,8 +159,8 @@ public class Card implements Serializable, Comparable<Card>{
     public static void main(String[] args) {
         ArrayList<Card> cardList = new ArrayList<Card>();
 
-        Card c1 = new Card(Rank.TEN, Suit.DIAMONDS);
-        Card c2 = new Card(Rank.FOUR, Suit.SPADES);
+        Card c1 = new Card(Rank.JACK, Suit.DIAMONDS);
+        Card c2 = new Card(Rank.QUEEN, Suit.SPADES);
         Card c3 = new Card(Rank.TEN, Suit.SPADES);
         Card c4 = new Card(Rank.TWO, Suit.CLUBS);
         Card c5 = new Card(Rank.SIX, Suit.HEARTS);
@@ -169,7 +169,9 @@ public class Card implements Serializable, Comparable<Card>{
 
         Card choiceCard = new Card(Rank.SIX, Suit.SPADES);
 
-        cardList.add(c1);
+        System.out.println(c1.compareTo(c2));
+
+        /*cardList.add(c1);
         cardList.add(c2);
         cardList.add(c3);
         cardList.add(c4);
@@ -180,7 +182,7 @@ public class Card implements Serializable, Comparable<Card>{
         System.out.println(cardList.size());
 
         cardList.remove(0);
-        System.out.println(cardList.get(0));
+        System.out.println(cardList.get(0));*/
 
         /*Comparator<Card> comp = new CompareRank();
 

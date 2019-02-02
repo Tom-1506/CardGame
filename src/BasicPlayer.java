@@ -1,8 +1,13 @@
 public class BasicPlayer implements Player{
     private int playerID;
     private Card.Suit trump;
-    private Hand playerHand = new Hand();
+    private Hand playerHand;
     private Strategy playerStrategy = new BasicStrategy();
+
+    public BasicPlayer(int id){
+        playerID = id;
+        playerHand = new Hand();
+    }
 
     @Override
     public Card playCard(Trick t){
@@ -16,7 +21,7 @@ public class BasicPlayer implements Player{
 
     @Override
     public void dealCard(Card c){
-        //playerHand.add(c);
+        playerHand.add(c);
     }
 
     @Override

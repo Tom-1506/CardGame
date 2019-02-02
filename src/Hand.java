@@ -153,34 +153,11 @@ public class Hand implements Iterable<Card>, Serializable{
     }
 
     public void sort(){
-        int handSize = handList.size();
-        Card temp = handList.get(0);
-        for(int i=0; i < handSize; i++){
-            for(int j=1; j < (handSize-i); j++){
-                if(handList.get(j-1).compareTo(handList.get(j)) == 1){
-                    //swap elements
-                    temp = handList.get(j-1);
-                    handList.set(j-1, handList.get(j));
-                    handList.set(j, temp);
-                }
-            }
-        }
+        Collections.sort(this.handList);
     }
 
     public void sortByRank(){
-        Comparator<Card> comp = new Card.CompareRank();
-        int handSize = handList.size();
-        Card temp = handList.get(0);
-        for(int i=0; i < handSize; i++){
-            for(int j=1; j < (handSize-i); j++){
-                if(comp.compare(handList.get(j-1), handList.get(j)) == 1){
-                    //swap elements
-                    temp = handList.get(j-1);
-                    handList.set(j-1, handList.get(j));
-                    handList.set(j, temp);
-                }
-            }
-        }
+        this.handList.sort(new Card.CompareRank());
     }
 
     public int countSuit(Card.Suit suit){
