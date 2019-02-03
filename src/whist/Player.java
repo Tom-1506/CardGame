@@ -1,3 +1,6 @@
+package whist;
+import cards.Card;
+
 /**
  * interface for a Whist Player  programming coursework
  * @author ajb

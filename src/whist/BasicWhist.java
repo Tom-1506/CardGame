@@ -1,3 +1,6 @@
+package whist;
+import cards.Card;
+import cards.Deck;
 import java.util.Iterator;
 
 /**
@@ -49,12 +52,16 @@ public class BasicWhist{
 
         Card.Suit trumps = Card.Suit.randSuit();
         Trick.setTrumps(trumps);
-        System.out.println(trumps);
 
         for(int i=0;i<NOS_PLAYERS;i++)
             players[i].setTrumps(trumps);
         
         for(int i=0;i<NOS_TRICKS;i++){
+            System.out.println("+-----------------------------------------------+");
+            System.out.println("|-----------------: NEW TRICK :-----------------|");
+            System.out.println("+-----------------------------------------------+");
+            System.out.println(trumps);
+
             Trick t=playTrick(players[firstPlayer]);            
             System.out.println("Trick = " + t);
             firstPlayer=t.findWinner();
@@ -101,7 +108,6 @@ public class BasicWhist{
 
     public static void playTestGame(){
         Player[] p = new Player[NOS_PLAYERS];
-        Strategy s = new BasicStrategy();
         for(int i=0;i<p.length;i++){
             p[i] = new BasicPlayer(i);
         }

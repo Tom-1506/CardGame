@@ -1,3 +1,6 @@
+package whist;
+import cards.Card;
+import cards.Hand;
 /**
 *
 * Programming 2 coursework file

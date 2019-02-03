@@ -1,12 +1,17 @@
+package whist;
+import cards.Card;
+import cards.Hand;
+
 public class BasicPlayer implements Player{
     private int playerID;
     private Card.Suit trump;
     private Hand playerHand;
-    private Strategy playerStrategy = new BasicStrategy();
+    private Strategy playerStrategy;
 
     public BasicPlayer(int id){
         playerID = id;
         playerHand = new Hand();
+        playerStrategy = new BasicStrategy(playerID);
     }
 
     @Override
