@@ -14,6 +14,7 @@ public interface Strategy {
  * @return 
  */    
     Card chooseCard(Hand h, Trick t);
+
 /**
  * Update internal memory to include completed trick c
  * @param c 

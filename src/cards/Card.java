@@ -52,13 +52,16 @@ public class Card implements Serializable, Comparable<Card>{
         this.suit = suit;
     }
 
+    //toString returns eg. king of hearts as "KING of HEARTS - Value: 10"
     @Override
     public String toString(){
         return (this.rank + " of " + this.suit + " - Value: " + this.rank.getValue());
     }
 
+    //compareTo for ordinal value returns 1 if compCard is less than "this" card and -1 if less than
     @Override
     public int compareTo(Card compCard){
+        //convert cards to int array with ordinal of rank and suit eg four of diamonds = [3,1]
         int[] thisCardValue = new int[] {this.rank.ordinal(), this.suit.ordinal()};
         int[] compCardValue = new int[] {compCard.rank.ordinal(), compCard.suit.ordinal()};
 
@@ -81,14 +84,16 @@ public class Card implements Serializable, Comparable<Card>{
         }
     }
 
-    //returns largest Card in arraylist of Cards
+    //returns largest Card in arraylist of Cards using an iterator
     public static Card max(ArrayList<Card> cardList){
         Iterator<Card> itr= cardList.iterator();
         Card max = itr.next();
 
+        //while there are more cards
         while(itr.hasNext()){
             Card comp = itr.next();
 
+            //if this card is larger than max then change max to this card
             if(max.compareTo(comp) == -1){
                 max = comp;
             }
@@ -158,8 +163,8 @@ public class Card implements Serializable, Comparable<Card>{
     }
 
     public static void main(String[] args) {
+        //make an arrayList of Cards for testing
         ArrayList<Card> cardList = new ArrayList<Card>();
-
         Card c1 = new Card(Rank.JACK, Suit.DIAMONDS);
         Card c2 = new Card(Rank.QUEEN, Suit.SPADES);
         Card c3 = new Card(Rank.TEN, Suit.SPADES);
@@ -167,12 +172,7 @@ public class Card implements Serializable, Comparable<Card>{
         Card c5 = new Card(Rank.SIX, Suit.HEARTS);
         Card c6 = new Card(Rank.THREE, Suit.CLUBS);
         Card c7 = new Card(Rank.THREE, Suit.DIAMONDS);
-
-        Card choiceCard = new Card(Rank.SIX, Suit.SPADES);
-
-        System.out.println(c1.compareTo(c2));
-
-        /*cardList.add(c1);
+        cardList.add(c1);
         cardList.add(c2);
         cardList.add(c3);
         cardList.add(c4);
@@ -180,20 +180,29 @@ public class Card implements Serializable, Comparable<Card>{
         cardList.add(c6);
         cardList.add(c7);
 
-        System.out.println(cardList.size());
+        //Tests compareTo
+        System.out.println("should return 1: " + c1.compareTo(c4));
+        System.out.println("should return -1: " + c4.compareTo(c2));
 
-        cardList.remove(0);
-        System.out.println(cardList.get(0));*/
+        //Tests max
+        System.out.println("\nshould return Queen of Spades: " + max(cardList));
 
-        /*Comparator<Card> comp = new CompareRank();
+        //Tests chooseGreater
+        Comparator<Card> comp = new CompareRank();
+        Card choiceCard = new Card(Rank.SIX, Suit.SPADES);
+        System.out.println("\nshould return cards greater than Six of Spades: \n" + chooseGreater(cardList, comp, choiceCard));
 
-        ArrayList<Card> greater = chooseGreater(cardList, comp, choiceCard);
+        //Tests Comparators
+        Comparator<Card> compRank = new CompareRank();
+        Comparator<Card> compDesc = new CompareDescending();
 
-        System.out.println(choiceCard);
-        System.out.println("less than:");
+        cardList.sort(compRank);
+        System.out.println("\nshould return cardList sorted ascending: \n" + cardList);
 
-        for(Card card : greater){
-            System.out.println(card);
-        }*/
+        cardList.sort(compDesc);
+        System.out.println("\nshould return cardList sorted descending: \n" + cardList);
+
+        /*Other features of card are widely shown to be functional in other parts of the program such as
+        * access to rank value and suit*/
     }
 }
