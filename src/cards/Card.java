@@ -153,11 +153,18 @@ public class Card implements Serializable, Comparable<Card>{
         }
     }
 
+    public static void selectTest(ArrayList<Card> cardList, Card compCard){
+        Comparator<Card> lambdaCompare = (Card first, Card second) ->{
+            return first.compareTo(second);
+        };
+
+        System.out.println(chooseGreater(cardList, lambdaCompare, compCard));
+    }
+
     //Accessors
     public Rank getRank(){
         return this.rank;
     }
-
     public Suit getSuit(){
         return this.suit;
     }
@@ -201,6 +208,11 @@ public class Card implements Serializable, Comparable<Card>{
 
         cardList.sort(compDesc);
         System.out.println("\nshould return cardList sorted descending: \n" + cardList);
+
+        //Tests SelectTest Lambda
+        Card compCard = new Card(Rank.EIGHT, Suit.DIAMONDS);
+        System.out.println("\nshould return all cards larger than Eight of Diamonds: ");
+        selectTest(cardList, compCard);
 
         /*Other features of card are widely shown to be functional in other parts of the program such as
         * access to rank value and suit*/

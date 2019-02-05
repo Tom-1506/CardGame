@@ -83,20 +83,20 @@ public class BasicStrategy implements Strategy{
 
         //sets partnerCard to be whatever Card the partner played
         if(playerID > 1){
-            Card partnerCard = t.getCard(playerID - 2);
+            partnerCard = t.getCard(playerID - 2);
         }
         else{
-            Card partnerCard = t.getCard(playerID + 2);
+            partnerCard = t.getCard(playerID + 2);
         }
 
         //if your partner has played a Card and it is the winning Card
         if(t.getWinningCard() != null && partnerCard == t.getWinningCard()){
             for(Card c : h){
                 if(c.getSuit() == t.getLeadSuit()){
-                       if(c.compareTo(choice) == -1){
-                        //partner is winning so find a smaller card of the lead suit
-                        choice = c;
-                        chosen = true;
+                   if(c.compareTo(choice) == -1){
+                       //partner is winning so find a smaller card of the lead suit
+                       choice = c;
+                       chosen = true;
                     }
                 }
             }

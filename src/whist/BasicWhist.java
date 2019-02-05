@@ -187,7 +187,23 @@ public class BasicWhist{
         bg.playMatch(); //Just plays a single match
     }
 
+    public static void advancedGame(){
+        System.out.println("Game of Two Basic Players and Two Advanced Players");
+        Player[] p = new Player[NOS_PLAYERS];
+        for(int i=0;i<p.length;i++){
+            p[i] = new BasicPlayer(i);
+        }
+
+        //set team1 to be advanced
+        AdvancedStrategy a = new AdvancedStrategy();
+        p[0].setStrategy(a);
+        p[2].setStrategy(a);
+
+        BasicWhist bg=new BasicWhist(p);
+        bg.playMatch(); //Just plays a single match
+    }
+
     public static void main(String[] args){
-        basicGame();
+        humanGame();
     }
 }
